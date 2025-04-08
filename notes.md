@@ -13,13 +13,14 @@
 <table>
     <tr>
         <td><center>
-            <img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250407220158867.png" height="200" width="400">栈空间内存
+            <img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250407220158867.png" height="200" width="400"><br>栈空间内存
         </center></td>
         <td><center>
-           <img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250407220225659.png" height="200" width="400">内嵌函数
+           <img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250407220225659.png" height="200" width="400"><br>内嵌函数
         </center></td>
     </tr>
 </table>
+
 1. 栈上对象的生命周期：
 
 ```cpp
@@ -82,7 +83,7 @@ int main() {
 
 ##### RAII
 
- Resource Acquisition Is Initialization 资源获取即初始化
+ Resource Acquisition Is Initialization **资源获取即初始化**
 
 重点在于构造和析构行为，尤其是析构。用于帮助管理堆上的对象：对象很大；对象大小编译时不能确定；对象是函数的返回值，但是由于特殊原因不应该使用对象的值返回。
 
@@ -93,5 +94,93 @@ int main() {
 进一步地，可以完成一个RAII的帮助类
 
 ```cpp
+class shape_wrapper {
+public:
+    explicit shape_wrapper(shape *ptr = nullptr)
+      : ptr_(ptr) {
+    }
+    ~shape_wrapper() {
+        delete ptr_;
+    }
+    shape *get() const {
+        return ptr_;
+    }
+private:
+    shape *ptr_;
+};
+void foo() {
+    shape_wrapper ptr_wrapper(create_shape(shape_type::circle));
+}
+int main() {
+    foo();
+    return 0;
+}
 ```
 
+new和delete的设计思路
+
+可以通过下图来表示
+
+<center><img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250408201543298.png" alt="image-20250408201543298" style="zoom:50%;" /><br>new和delete背后原理<center/>
+
+RAII不仅仅内存管理，也可以用于关闭文件(fstream的析构就会这样做)，此外还能释放同步锁或者释放其他重要的系统资源。
+
+RAII在锁同步中的设计使用
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250408202822040.png" alt="image-20250408202822040" style="zoom: 67%;" />
+
+RAII在容器中进行成员管理
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250408203030352.png" alt="image-20250408203030352" style="zoom:67%;" />
+
+RAII的递归性
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250408203154502.png" alt="image-20250408203154502" style="zoom:67%;" />
+
+##### 三法则
+
+> * 若某个类需要用户定义的析构函数，用户定义的拷贝构造函数，或者用户定义的拷贝赋值运算符，则它几乎肯定三者全部都需要实现。
+
+##### 引用语义和值语义
+
+值语义的优点
+
+> * 行为简单，符合直觉
+> * 不容易发生竞争
+> * 数据嵌套时内存相邻，性能高
+> * 对象本身可以分配在栈上，栈上内存的分配释放开销非常低
+
+缺点也很明显，容易不小心发生内存复制，那如何返回或者复制容器对象呢？
+
+> * 函数如果返回临时对象，它是临时对象，在当前语句执行结束后则被销毁。
+> * 如果我们要获得临时对象中的资源，我们会使用移动而不是构造
+
+####  移动语义和右值引用
+
+##### 左值
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250408205957423.png" alt="image-20250408205957423" style="zoom: 50%;" />
+
+##### 右值
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250408210033800.png" alt="image-20250408210033800" style="zoom: 50%;" />
+
+##### 将亡值
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250408210153909.png" alt="image-20250408210153909" style="zoom: 67%;" />
+
+##### 移动和noexcept
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250408211534411.png" alt="image-20250408211534411" style="zoom:67%;" />
+
+#####   五法则
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250408211706892.png" alt="image-20250408211706892" style="zoom:67%;" />
+
+##### 右值引用的误用
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250408211955529.png" alt="image-20250408211955529" style="zoom:67%;" />
+
+##### c++对象的生命周期
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250408213102839.png" alt="image-20250408213102839" style="zoom: 67%;" />
