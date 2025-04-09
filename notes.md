@@ -184,3 +184,50 @@ RAII的递归性
 ##### c++对象的生命周期
 
 <img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250408213102839.png" alt="image-20250408213102839" style="zoom: 67%;" />
+
+#### 手写智能指针
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250409151037429.png" alt="image-20250409151037429" style="zoom: 33%;" />
+
+这里注意下，需要手动实现一个拷贝构造，为什么呢？尽管已经有了一个模板形式的通用写法，但是c++得编译器不会将其看作是已有的拷贝构造，所以自动生成一个默认的拷贝构造，但是对我们而言它得逻辑不完全正确，所以需要再手动实现一个。同时，如果手动提供了拷贝构造，编译器将不再提供默认的移动构造，此时模板实现的通用形式将能够被识别使用。
+
+让对象支持移动？
+
+> * 对象应该有分开的拷贝构造和移动构造函数
+> * 对象应该有swap成员函数，支持和另外一个对象的快速交换成员
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250409151553631.png" alt="image-20250409151553631" style="zoom:33%;" />
+
+make_unique的注意点
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250409151914653.png" alt="image-20250409151914653" style="zoom:33%;" />
+
+传参一般使用普通指针或引用
+
+#### 容器和类容器
+
+##### string和序列容器
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250409160121286.png" alt="image-20250409160121286" style="zoom: 80%;" />
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250409160227904.png" alt="image-20250409160227904" style="zoom: 50%;" />
+
+begin和end是迭代器，front和back是引用
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250409160325893.png" alt="image-20250409160325893" style="zoom: 67%;" />
+
+接口使用建议
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250409160554804.png" alt="image-20250409160554804" style="zoom:50%;" />
+
+##### array特点
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250409161007834.png" alt="image-20250409161007834" style="zoom:50%;" />
+
+##### vector
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250409161353943.png" alt="image-20250409161353943" style="zoom:67%;" />
+
+一点异常安全要求：
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250409163747240.png" alt="image-20250409163747240" style="zoom:67%;" />
