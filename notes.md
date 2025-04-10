@@ -231,3 +231,63 @@ begin和end是迭代器，front和back是引用
 一点异常安全要求：
 
 <img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250409163747240.png" alt="image-20250409163747240" style="zoom:67%;" />
+
+#### 对象返回和异常
+
+在函数输出数值的时候，尽量使用返回值而非输出参数
+
+返回对象的优势
+
+> * 代码直观更加容易理解
+> * 乘法和假发可以组合在一行里写出来，无需中间变量
+> * 性能高，没有不需要的复制发生
+
+返回值优化，返回无名对象
+
+```cpp
+class A {
+public:
+    A() {
+        cout << "Create A\n";
+    }
+    ~A() {
+        cout << "Destroy A\n";
+    }
+    A(const A&) = delete;
+    A(A&&) = delete;
+};
+A getA_unnamed() {
+    return A();
+}
+int main() {
+    auto a = getA_unnamed();
+}
+```
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250410153520192.png" alt="image-20250410153520192" style="zoom:67%;" />
+
+返回多分支构造的情况下会优先发生移动构造，如果移动构造没定义会选择拷贝构造
+
+返回对象的理由
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250410154003410.png" alt="image-20250410154003410" style="zoom:80%;" />
+
+当然也有例外
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250410154035638.png" alt="image-20250410154035638" style="zoom:80%;" />
+
+异常违反了c++零开销原则，但是大大增强了代码的表达能力和可读性
+
+使用返回码会出现一个深层返错
+
+异常安全
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250410155710973.png" alt="image-20250410155710973" style="zoom:67%;" />
+
+异常优势
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250410160539897.png" alt="image-20250410160539897" style="zoom:80%;" />
+
+c++易用性改进
+
+![image-20250410172806662](https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250410172806662.png)
