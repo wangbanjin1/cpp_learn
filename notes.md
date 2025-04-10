@@ -231,3 +231,5 @@ begin和end是迭代器，front和back是引用
 一点异常安全要求：
 
 <img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250409163747240.png" alt="image-20250409163747240" style="zoom:67%;" />
+
+##### 函数对象类型决定了其行为
