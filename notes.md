@@ -292,4 +292,20 @@ int main() {
 
 c++易用性改进
 
-![image-20250410172806662](https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250410172806662.png)
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250410172806662.png" alt="image-20250410172806662" style="zoom:80%;" />
+
+#### 语言易用性改进
+
+##### 自动类型推到和类模版参数推导
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250412200305253.png" alt="image-20250412200305253" style="zoom:80%;" />
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250412200610997.png" alt="image-20250412200610997" style="zoom:80%;" />
+
+##### decltype
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250412201118790.png" alt="image-20250412201118790" style="zoom:80%;" />
+
+<img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250412210118375.png" alt="image-20250412210118375" style="zoom: 80%;" />
+
+<img src="C:\Users\wangbanjin\AppData\Roaming\Typora\typora-user-images\image-20250412210632930.png" alt="image-20250412210632930" style="zoom:80%;" />
