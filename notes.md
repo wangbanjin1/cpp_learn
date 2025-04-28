@@ -233,3 +233,18 @@ begin和end是迭代器，front和back是引用
 <img src="https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250409163747240.png" alt="image-20250409163747240" style="zoom:67%;" />
 
 ##### 函数对象类型决定了其行为
+
+#### 视图
+
+* string_view
+
+  ![image-20250428153956420](C:\Users\wangbanjin\AppData\Roaming\Typora\typora-user-images\image-20250428153956420.png)
+
+* span
+
+  ![image-20250428155514439](https://raw.githubusercontent.com/wangbanjin1/pictures/main/image-20250428155514439.png)
+
+* Ranges里的视图
+
+#### 模版基础
+
